@@ -7,7 +7,7 @@ module.exports = exports = function KeyPath(obj) {
 	this.get = function(keypath) {
 
 		if (!Array.isArray(keypath)) {
-			keypath = (keypath || '').split('.');
+			keypath = (keypath || '').split('.').filter(key => key.length > 0);
 		}
 
 		if (keypath.length === 1 && keypath[0] === '') {
@@ -27,7 +27,7 @@ module.exports = exports = function KeyPath(obj) {
 	this.set = function(keypath, value) {
 
 		if (!Array.isArray(keypath)) {
-			keypath = keypath.split('.');
+			keypath = keypath.split('.').filter(key => key.length > 0);
 		}
 
 		let ret = obj;
