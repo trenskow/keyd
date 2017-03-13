@@ -1,10 +1,10 @@
 {
   "name": "keyd",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Modify objects using key paths.",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "./node_modules/mocha/bin/mocha test/index.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/trenskow/keyd/issues"
   },
-  "homepage": "https://github.com/trenskow/keyd#readme"
+  "homepage": "https://github.com/trenskow/keyd#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
 }
