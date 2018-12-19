@@ -7,7 +7,7 @@ module.exports = exports = function KeyPath(obj) {
 	this.get = function(keypath) {
 
 		if (!Array.isArray(keypath)) {
-			keypath = (keypath || '').split('.').filter(key => key.length > 0);
+			keypath = (keypath || '').split('.').filter(key => key.length > 0);
 		}
 
 		if (keypath.length === 1 && keypath[0] === '') {
@@ -21,6 +21,30 @@ module.exports = exports = function KeyPath(obj) {
 		}
 
 		return ret;
+
+	};
+
+	this.getAll = function(keypath) {
+
+		const resolve = function(obj, keypath) {
+
+			if (keypath.length == 0) return obj;
+
+			if (!Array.isArray(obj)) obj = [obj];
+
+			let items = obj.map((obj) => {
+				let ret = obj[keypath[0]];
+				if (!Array.isArray(ret)) ret = [ret];
+				return ret;
+			}).reduce((res, item) => {
+				return res.concat(item);
+			}, []);
+
+			return resolve(items, keypath.slice(1));
+
+		};
+
+		return resolve(obj, keypath.split('.'));
 
 	};
 

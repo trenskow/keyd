@@ -1,6 +1,6 @@
 {
   "name": "keyd",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Modify objects using key paths.",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/trenskow/keyd#readme",
   "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
   }
 }
