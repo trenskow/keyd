@@ -16,7 +16,7 @@ Modify objects using key paths.
 
 #### Getting values in array and subarrays.
 
-    keyd(myobj).get('my.keypath');
+    keyd(myobj).getAll('my.keypath');
     
 ### Setting Values
 
