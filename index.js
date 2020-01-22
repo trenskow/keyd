@@ -1,17 +1,13 @@
 'use strict';
 
-module.exports = exports = function KeyPath(obj) {
+function KeyPath(obj) {
 
 	if (!(this instanceof KeyPath)) return new KeyPath(obj);
 
 	this.get = function(keypath) {
 
 		if (!Array.isArray(keypath)) {
-			keypath = (keypath || '').split('.').filter(key => key.length > 0);
-		}
-
-		if (keypath.length === 1 && keypath[0] === '') {
-			keypath = [];
+			keypath = components(keypath);
 		}
 
 		let ret = obj;
@@ -64,4 +60,51 @@ module.exports = exports = function KeyPath(obj) {
 
 	};
 
-};
+}
+
+module.exports = exports = KeyPath;
+
+function components(keyPath) {
+	return (keyPath || '').split('.').filter((part) => part);
+}
+
+exports.components = components;
+
+function join(components) {
+	components = components || [];
+	return components.join('.');
+}
+
+exports.join = join;
+
+function append(keyPath, keys) {
+	if (!Array.isArray(keys)) keys = [keys];
+	return components(keyPath).concat(keys).join('.');
+}
+
+exports.append = append;
+
+function last(keyPath) {
+	let parts = components(keyPath);
+	return parts[parts.length - 1];
+}
+
+exports.last = last;
+
+function eatLast(keyPath) {
+	return join(components(keyPath).slice(0, -1));
+}
+
+exports.eatLast = eatLast;
+
+function first(keyPath) {
+	return components(keyPath)[0];
+}
+
+exports.first = first;
+
+function eatFirst(keyPath) {
+	return join(components(keyPath).slice(1));
+}
+
+exports.eatFirst = eatFirst;

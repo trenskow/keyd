@@ -29,3 +29,35 @@ it ('should modify original object', () => {
 it ('should come back with all items', () => {
 	expect(keypath(arr).getAll('this.is.a.value')).to.deep.equal([1,2,3,4]);
 });
+
+it ('should come back with components.', () => {
+	expect(keypath.components('this.is.a.key.path')).to.be.an('Array').with.lengthOf(5);
+});
+
+it ('should come back with an empty components.', () => {
+	expect(keypath.components('')).to.be.an('Array').with.lengthOf(0);
+});
+
+it ('should join key path.', () => {
+	expect(keypath.join(['this','is','a','key','path'])).to.equal('this.is.a.key.path');
+});
+
+it ('should append a key.', () => {
+	expect(keypath.append('this.is.a.key', 'path')).to.equal('this.is.a.key.path');
+});
+
+it ('should come back with the last component.', () => {
+	expect(keypath.last('this.is.a.key.path')).to.equal('path');
+});
+
+it ('should come back without the last component removed.', () => {
+	expect(keypath.eatLast('this.is.a.key.path')).to.equal('this.is.a.key');
+});
+
+it ('should come back with the first component.', () => {
+	expect(keypath.first('this.is.a.key.path')).to.equal('this');
+});
+
+it ('should come back with the first component removed.', () => {
+	expect(keypath.eatFirst('this.is.a.key.path')).to.equal('is.a.key.path');
+});
