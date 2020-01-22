@@ -79,7 +79,7 @@ exports.join = join;
 
 function append(keyPath, keys) {
 	if (!Array.isArray(keys)) keys = [keys];
-	return components(keyPath).concat(keys).join('.');
+	return join(components(keyPath).concat(keys));
 }
 
 exports.append = append;
