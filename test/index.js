@@ -61,3 +61,7 @@ it ('should come back with the first component.', () => {
 it ('should come back with the first component removed.', () => {
 	expect(keypath.eatFirst('this.is.a.key.path')).to.equal('is.a.key.path');
 });
+
+it ('should come back with the depth of the key path.', () => {
+	expect(keypath.depth('this.is.a.key.path')).to.equal(5);
+});

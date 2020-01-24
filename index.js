@@ -77,6 +77,12 @@ function join(components) {
 
 exports.join = join;
 
+function depth(keyPath) {
+	return components(keyPath).length;
+}
+
+exports.depth = depth;
+
 function append(keyPath, keys) {
 	if (!Array.isArray(keys)) keys = [keys];
 	return join(components(keyPath).concat(keys));
