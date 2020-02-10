@@ -65,3 +65,19 @@ it ('should come back with the first component removed.', () => {
 it ('should come back with the depth of the key path.', () => {
 	expect(keypath.depth('this.is.a.key.path')).to.equal(5);
 });
+
+it ('should come back with `false` if key path is not within another.', () => {
+	expect(keypath.within('this.is.my.first.path', 'this.is.my.second')).to.equal(false);
+});
+
+it ('should come back with `true` if key path is within another', () => {
+	expect(keypath.within('this.is.my', 'this.is.my.second')).to.equal(true);
+});
+
+it ('should come back with `true` if key path is equal to another', () => {
+	expect(keypath.within('this.is.my', 'this.is.my')).to.equal(true);
+});
+
+it ('should come back with `false` if key path is longer than another', () => {
+	expect(keypath.within('this.is.my.first.key.path', 'this.is.my')).to.equal(false);
+});

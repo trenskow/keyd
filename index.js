@@ -114,3 +114,14 @@ function eatFirst(keyPath) {
 }
 
 exports.eatFirst = eatFirst;
+
+function within(first, second) {
+	const firstComponents = components(first);
+	const secondComponents = components(second);
+	if (firstComponents.length > secondComponents.length) return false;
+	return !firstComponents.some((firstComponent, idx) => {
+		return firstComponent !== secondComponents[idx];
+	});
+}
+
+exports.within = within;
