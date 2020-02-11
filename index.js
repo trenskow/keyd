@@ -4,7 +4,7 @@ function KeyPath(obj) {
 
 	if (!(this instanceof KeyPath)) return new KeyPath(obj);
 
-	Object.defineProperty(this, 'keys', {
+	Object.defineProperty(this, 'keyPaths', {
 		get: function() {
 
 			const keys = (obj, keyPath = []) => {

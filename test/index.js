@@ -92,5 +92,5 @@ it ('should come back with all the keys in an object', () => {
 				f: 'abc'
 			}
 		}
-	}).keys).to.have.members(['a', 'b', 'b.c', 'b.d', 'b.d.e', 'b.d.f']);
+	}).keyPaths).to.have.members(['a', 'b', 'b.c', 'b.d', 'b.d.e', 'b.d.f']);
 });
