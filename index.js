@@ -8,7 +8,7 @@ function KeyPath(obj) {
 		get: function() {
 
 			const keys = (obj, keyPath = []) => {
-				if (!obj || typeof obj === 'string') return [];
+				if (!obj || typeof obj === 'string' || Array.isArray(obj)) return [];
 				return [].concat(...Object.keys(obj).map((key) => {
 					const newKeyPath = keyPath.concat([key]);
 					return [newKeyPath.join('.')].concat(...keys(obj[key], newKeyPath));

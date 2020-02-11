@@ -94,3 +94,9 @@ it ('should come back with all the keys in an object', () => {
 		}
 	}).keyPaths).to.have.members(['a', 'b', 'b.c', 'b.d', 'b.d.e', 'b.d.f']);
 });
+
+it ('should ignore arrays', () => {
+	expect(keypath({
+		a: [123,456]
+	}).keyPaths).to.have.members(['a']);
+});
