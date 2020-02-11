@@ -81,3 +81,16 @@ it ('should come back with `true` if key path is equal to another', () => {
 it ('should come back with `false` if key path is longer than another', () => {
 	expect(keypath.within('this.is.my.first.key.path', 'this.is.my')).to.equal(false);
 });
+
+it ('should come back with all the keys in an object', () => {
+	expect(keypath({
+		a: 123,
+		b: {
+			c: 456,
+			d: {
+				e: 789,
+				f: 'abc'
+			}
+		}
+	}).keys).to.have.members(['a', 'b', 'b.c', 'b.d', 'b.d.e', 'b.d.f']);
+});
