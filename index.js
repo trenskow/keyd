@@ -74,6 +74,8 @@ function KeyPath(obj) {
 
 		ret[keyPath[keyPath.length - 1]] = value;
 
+		return obj;
+
 	};
 
 }
