@@ -20,6 +20,12 @@ function KeyPath(obj) {
 		}
 	});
 
+	Object.defineProperty(this, 'result', {
+		get: function() {
+			return obj;
+		}
+	});
+
 	this.get = function(keyPath) {
 
 		if (!Array.isArray(keyPath)) {
@@ -74,7 +80,7 @@ function KeyPath(obj) {
 
 		ret[keyPath[keyPath.length - 1]] = value;
 
-		return obj;
+		return this;
 
 	};
 

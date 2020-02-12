@@ -1,6 +1,6 @@
 {
   "name": "keyd",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "Modify objects using key paths.",
   "main": "index.js",
   "scripts": {

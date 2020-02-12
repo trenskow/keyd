@@ -18,7 +18,7 @@ it ('should come back with undefined', () => {
 });
 
 it ('should set value (creating intermediate objects), return the object and read it back', () => {
-	obj = keyPath(obj).set('this.is.a.new.value', true);
+	obj = keyPath(obj).set('this.is.a.new.value', true).result;
 	expect(keyPath(obj).get('this.is.a.new.value')).to.equal(true);
 });
 
