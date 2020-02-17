@@ -83,20 +83,21 @@ it ('should come back with `false` if key path is longer than another', () => {
 });
 
 it ('should come back with all the keys in an object', () => {
-	expect(keyPath({
-		a: 123,
-		b: {
-			c: 456,
-			d: {
-				e: 789,
-				f: 'abc'
-			}
-		}
-	}).keyPaths).to.have.members(['a', 'b', 'b.c', 'b.d', 'b.d.e', 'b.d.f']);
+	expect(keyPath({ a: 123, b: { c: 456, d: { e: 789, f: 'abc' } }}).keyPaths())
+		.to.have.members(['a', 'b', 'b.c', 'b.d', 'b.d.e', 'b.d.f']);
+});
+
+it ('should come back with all the keys in an object (with specific depth)', () => {
+	expect(keyPath({ a: 123, b: { c: 456, d: { e: 789, f: 'abc' } }}).keyPaths({ depth: 0 }))
+		.to.have.members(['a', 'b']);
+});
+
+it ('should come back with all the keys in an object (without any ds)', () => {
+	expect(keyPath({ a: 123, b: { c: 456, d: { e: 789, f: 'abc' } }}).keyPaths({ filter: (keyPath) => {
+		return keyPath.indexOf('d') == -1;
+	}})).to.have.members(['a', 'b', 'b.c', 'b.d']);
 });
 
 it ('should ignore arrays', () => {
-	expect(keyPath({
-		a: [123,456]
-	}).keyPaths).to.have.members(['a']);
+	expect(keyPath({ a: [123,456] }).keyPaths()).to.have.members(['a']);
 });

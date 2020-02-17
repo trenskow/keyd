@@ -4,27 +4,29 @@ function KeyPath(obj) {
 
 	if (!(this instanceof KeyPath)) return new KeyPath(obj);
 
-	Object.defineProperty(this, 'keyPaths', {
-		get: function() {
-
-			const keys = (obj, keyPath = []) => {
-				if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return [];
-				return [].concat(...Object.keys(obj).map((key) => {
-					const newKeyPath = keyPath.concat([key]);
-					return [newKeyPath.join('.')].concat(...keys(obj[key], newKeyPath));
-				}));
-			};
-
-			return keys(obj);
-
-		}
-	});
-
 	Object.defineProperty(this, 'result', {
 		get: function() {
 			return obj;
 		}
 	});
+
+	this.keyPaths = function(options = {}) {
+
+		if (typeof options.depth !== 'number') options.depth = Infinity;
+
+		const keys = (obj, keyPath = [], level = 0) => {
+			if (level > options.depth) return [];
+			if (level > 0 && options.filter && !options.filter(join(keyPath), obj)) return [];
+			if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return [];
+			return [].concat(...Object.keys(obj).map((key) => {
+				const newKeyPath = keyPath.concat([key]);
+				return [join(newKeyPath)].concat(...keys(obj[key], newKeyPath, level + 1));
+			}));
+		};
+
+		return keys(obj);
+
+	};
 
 	this.get = function(keyPath) {
 
