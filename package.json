@@ -1,7 +1,7 @@
 {
   "name": "keyd",
-  "version": "1.2.0",
-  "description": "Modify objects using key paths.",
+  "version": "1.2.1",
+  "description": "A small library for using and manipulating key path in JavaScript.",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test/index.js"
