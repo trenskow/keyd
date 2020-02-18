@@ -9,12 +9,12 @@ A small library for using and manipulating key path in JavaScript.
 npm install --save keyd
 ````
 
-# Getting / Setting Values
-
 ````javascript
 const keyd = require('keyd');
 ````
     
+# Getting / Setting Values
+
 ## Getting Values
 
 ````javascript
