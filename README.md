@@ -1,7 +1,7 @@
 keyd
 ----
 
-A small library for using and manipulating key path in JavaScript.
+A small library for using and manipulating key paths in JavaScript.
 
 # Installation
 
