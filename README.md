@@ -3,53 +3,53 @@ keyd
 
 A small library for using and manipulating key path in JavaScript.
 
-## Installation
+# Installation
 
 ````bash
 npm install --save keyd
 ````
 
-## Getting / Setting Values
+# Getting / Setting Values
 
 ````javascript
 const keyd = require('keyd');
 ````
     
-### Getting Values
+## Getting Values
 
 ````javascript
 keyd(obj).get('my.keypath');
 ````
 
-#### Getting values in array and sub-arrays.
+### Getting values in array and sub-arrays.
 
 ````javascript
 keyd(obj).getAll('my.keypath');
 ````
 
-### Setting Values
+## Setting Values
 
 ````javascript
 keyd(obj).set('my.keypath', value);
 ````
 
-## Manipulating Key Paths
+# Manipulating Key Paths
 
-### Components
+## Components
 
 ````javascript
 const components = keyd.components('my.key.path');
 /* -> ['my','key','path'] */
 ````
 
-### Joining
+## Joining
 
 ````javascript
 const keyPath = keyd.join(['my','key','path']);
 /* -> 'my.key.path' */
 ````
 
-### Appending Keys
+## Appending Keys
 
 ````javascript
 const keyPath = keyd.append('my.key', 'path');
@@ -63,47 +63,45 @@ const keyPath = keyd.append('my', ['key', 'path']);
 /* -> 'my.key.path' */
 ````
 
-### Last
+## Last
 
-#### Getting
+### Getting
 
 ````javascript
 const lastComponent = keyd.last('my.key.path');
 /* -> 'path' */
 ````
 
-#### Removing
+### Removing
 
 ````javascript
 const keyPath = keyd.eatLast('my.key.path');
 /* -> 'my.key' */
 ````
 
-### First
+## First
 
-#### Getting
+### Getting
 
 ````javascript
 const firstComponent = keyd.first('my.key.path');
 /* -> 'my' */
 ````
 
-#### Removing
+### Removing
 
 ````javascript
 const keyPath = keyd.eatFirst('my.key.path');
 /* -> 'key.path' */
 ````
 
-### Match
+## Match
 
 ````javascript
 const within = keyd.within('my.key.path', 'my.key');
 /* -> true */
 ````
 
-## License
+# License
 
 MIT (see LICENSE).
-
-# The end
