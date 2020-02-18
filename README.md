@@ -104,6 +104,6 @@ const within = keyd.within('my.key.path', 'my.key');
 
 ## License
 
-MIT (ses LICENSE).
+MIT (see LICENSE).
 
 # The end
