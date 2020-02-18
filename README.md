@@ -1,4 +1,4 @@
-# keyd
+keyd
 ----
 
 A small library for using and manipulating key path in JavaScript.
