@@ -36,7 +36,7 @@ function KeyPath(obj) {
 			}, obj);
 	};
 
-	this.getAll = function(keyPath, options = { separator: '.' }) {
+	this.get.all = function(keyPath, options = { separator: '.' }) {
 
 		const resolve = function(obj, keyPath) {
 
@@ -59,6 +59,9 @@ function KeyPath(obj) {
 		return resolve(obj, _unfold(keyPath, options));
 
 	};
+
+	// Legacy binding.
+	this.getAll = this.get.all;
 
 	this.set = function(keyPath, value, options = { separator: '.' }) {
 

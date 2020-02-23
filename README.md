@@ -24,7 +24,7 @@ keyd(obj).get('my.keypath');
 ### Getting values in array and sub-arrays.
 
 ````javascript
-keyd(obj).getAll('my.keypath');
+keyd(obj).get.all('my.keypath');
 ````
 
 ## Setting Values
@@ -129,7 +129,9 @@ const within = keyd.within('my.key.path', 'my.key');
 
 # Options
 
-All methods support options, which is an object as the last parameter. The table below shows the supported key(s).
+All methods supports options, which is provided as an object as the last parameter.
+
+The table below shows the supported key(s).
 
 | Name | Default value | Description | 
 |:-----|:--------------|:------------|
