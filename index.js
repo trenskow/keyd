@@ -13,14 +13,15 @@ function KeyPath(obj) {
 	this.keyPaths = function(options = {}) {
 
 		if (typeof options.depth !== 'number') options.depth = Infinity;
+		options.separator = options.separator || '.';
 
 		const keys = (obj, keyPath = [], level = 0) => {
 			if (level > options.depth) return [];
-			if (level > 0 && options.filter && !options.filter(join(keyPath), obj)) return [];
+			if (level > 0 && options.filter && !options.filter(join(keyPath, options), obj)) return [];
 			if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return [];
 			return [].concat(...Object.keys(obj).map((key) => {
 				const newKeyPath = keyPath.concat([key]);
-				return [join(newKeyPath)].concat(...keys(obj[key], newKeyPath, level + 1));
+				return [join(newKeyPath, options)].concat(...keys(obj[key], newKeyPath, level + 1));
 			}));
 		};
 
@@ -28,23 +29,14 @@ function KeyPath(obj) {
 
 	};
 
-	this.get = function(keyPath) {
-
-		if (!Array.isArray(keyPath)) {
-			keyPath = components(keyPath);
-		}
-
-		let ret = obj;
-
-		for (let idx = 0 ; idx < keyPath.length ; idx++) {
-			ret = (ret || {})[keyPath[idx]];
-		}
-
-		return ret;
-
+	this.get = function(keyPath, options = { separator: '.' }) {
+		return _unfold(keyPath, options)
+			.reduce((obj, key) => {
+				return (obj || {})[key];
+			}, obj);
 	};
 
-	this.getAll = function(keyPath) {
+	this.getAll = function(keyPath, options = { separator: '.' }) {
 
 		const resolve = function(obj, keyPath) {
 
@@ -64,15 +56,13 @@ function KeyPath(obj) {
 
 		};
 
-		return resolve(obj, keyPath.split('.'));
+		return resolve(obj, _unfold(keyPath, options));
 
 	};
 
-	this.set = function(keyPath, value) {
+	this.set = function(keyPath, value, options = { separator: '.' }) {
 
-		if (!Array.isArray(keyPath)) {
-			keyPath = keyPath.split('.').filter(key => key.length > 0);
-		}
+		keyPath = _unfold(keyPath, options.separator);
 
 		let ret = obj;
 
@@ -90,64 +80,101 @@ function KeyPath(obj) {
 
 module.exports = exports = KeyPath;
 
-function components(keyPath) {
-	return (keyPath || '').split('.').filter((part) => part);
+function components(keyPath, options = {}) {
+	if (typeof keyPath !== 'string') throw new Error('`keyPath` must be a string.');
+	return (keyPath || '').split(options.separator || '.').filter((part) => part);
 }
 
 exports.components = components;
 
-function join(components) {
-	components = components || [];
-	return components.join('.');
+function _unfold(keyPath, options) {
+	// If key path is not an array - we get the components of it.
+	if (!Array.isArray(keyPath)) return components(keyPath, options);
+	// - otherwise we copy it.
+	return keyPath.slice();
+}
+
+function join(components, options = {}) {
+	if (!Array.isArray(components)) throw new Error('`components` must be an array.');
+	return _unfold(components || []).join(options.separator || '.');
 }
 
 exports.join = join;
 
-function depth(keyPath) {
-	return components(keyPath).length;
+function depth(keyPath, options = { separator: '.' }) {
+	return _unfold(keyPath, options).length;
 }
 
 exports.depth = depth;
 
-function append(keyPath, keys) {
-	if (!Array.isArray(keys)) keys = [keys];
-	return join(components(keyPath).concat(keys));
+function append(keyPath, keys, options = { separator: '.' }) {
+	return join(_unfold(keyPath, options).concat(_unfold(keys, options)), options);
 }
 
 exports.append = append;
 
-function last(keyPath) {
-	let parts = components(keyPath);
+function last(keyPath, options = { separator: '.' }) {
+	let parts = _unfold(keyPath, options);
 	return parts[parts.length - 1];
 }
 
 exports.last = last;
 
-function eatLast(keyPath) {
-	return join(components(keyPath).slice(0, -1));
+function eatLast(keyPath, options = { separator: '.' }) {
+	return join(_unfold(keyPath, options).slice(0, -1), options);
 }
 
 exports.eatLast = eatLast;
 
-function first(keyPath) {
-	return components(keyPath)[0];
+function first(keyPath, options = { separator: '.' }) {
+	return _unfold(keyPath, options)[0];
 }
 
 exports.first = first;
 
-function eatFirst(keyPath) {
-	return join(components(keyPath).slice(1));
+function eatFirst(keyPath, eat, options = { separator: '.' }) {
+
+	if (typeof eat === 'object') {
+		options = eat;
+		eat = undefined;
+	}
+
+	// If components are not provided, we just take the first value.
+	if (!eat) eat = first(keyPath, options);
+
+	keyPath = _unfold(keyPath, options);
+	eat = _unfold(eat, options);
+
+	if (!within(eat, keyPath, options)) {
+		throw new Error('`eat` is not with key path.');
+	}
+
+	// As long as there are components left that match we eat it.
+	while (eat.length > 0) {
+		if (keyPath[0] === eat[0]) {
+			keyPath = keyPath.slice(1);
+			eat = eat.slice(1);
+		} else {
+			break;
+		}
+	}
+	
+	return join(keyPath, options);
+
 }
 
 exports.eatFirst = eatFirst;
 
-function within(first, second) {
-	const firstComponents = components(first);
-	const secondComponents = components(second);
-	if (firstComponents.length > secondComponents.length) return false;
-	return !firstComponents.some((firstComponent, idx) => {
-		return firstComponent !== secondComponents[idx];
+function within(first, second, options = { separator: '.' }) {
+
+	first = _unfold(first, options);
+	second = _unfold(second, options);
+
+	if (first.length > second.length) return false;
+	return !first.some((component, idx) => {
+		return component !== second[idx];
 	});
+
 }
 
 exports.within = within;

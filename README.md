@@ -42,12 +42,16 @@ const components = keyd.components('my.key.path');
 /* -> ['my','key','path'] */
 ````
 
+> Throws an error if input is not a string.
+
 ## Joining
 
 ````javascript
 const keyPath = keyd.join(['my','key','path']);
 /* -> 'my.key.path' */
 ````
+
+> Throws an error if input is not an array.
 
 ## Appending Keys
 
@@ -63,6 +67,8 @@ const keyPath = keyd.append('my', ['key', 'path']);
 /* -> 'my.key.path' */
 ````
 
+> Both inputs can be either strings or arrays.
+
 ## Last
 
 ### Getting
@@ -72,12 +78,16 @@ const lastComponent = keyd.last('my.key.path');
 /* -> 'path' */
 ````
 
+> Input can be a string or an array.
+
 ### Removing
 
 ````javascript
 const keyPath = keyd.eatLast('my.key.path');
 /* -> 'my.key' */
 ````
+
+> Input can be a string or an array.
 
 ## First
 
@@ -88,6 +98,8 @@ const firstComponent = keyd.first('my.key.path');
 /* -> 'my' */
 ````
 
+> Input can be a string or an array.
+
 ### Removing
 
 ````javascript
@@ -95,12 +107,33 @@ const keyPath = keyd.eatFirst('my.key.path');
 /* -> 'key.path' */
 ````
 
+or
+
+````javascript
+const keyPath = keyd.eatFirst('my.key.path', 'my.key');
+/* -> 'path' */
+````
+
+> Input can be a string or an array.
+
+> Latter example with throw an error if second key path is not within the first.
+
 ## Match
 
 ````javascript
 const within = keyd.within('my.key.path', 'my.key');
 /* -> true */
 ````
+
+> Both inputs can be either strings or arrays.
+
+# Options
+
+All methods support options, which is an object as the last parameter. The table below shows the supported key(s).
+
+| Name | Default value | Description | 
+|:-----|:--------------|:------------|
+| `separator` | `.` | A string that represents the separation characters of keys in a key path string.
 
 # License
 
