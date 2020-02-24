@@ -73,7 +73,7 @@ function KeyPath(obj) {
 			ret = ret[keyPath[idx]] = ret[keyPath[idx]] || {};
 		}
 
-		ret[keyPath[keyPath.length - 1]] = value;
+		if (keyPath.length > 0) ret[keyPath[keyPath.length - 1]] = value;
 
 		return this;
 
