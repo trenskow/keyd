@@ -116,7 +116,7 @@ const test = (options) => {
 	});
 	
 	it ('should come back with all the keys in an object (without any ds)', () => {
-		expect(keyPath({ a: 123, b: { c: 456, d: { e: 789, f: 'abc' } }}).keyPaths(merge({ filter: (keyPath) => {
+		expect(keyPath({ a: 123, b: { c: 456, d: { e: 789, f: 'abc' } }}).keyPaths(merge({ tester: (keyPath) => {
 			return keyPath.indexOf('d') == -1;
 		}}, merge(true, options)))).to.have.members(['a', 'b', convert('b.c'), convert('b.d')]);
 	});

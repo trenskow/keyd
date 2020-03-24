@@ -17,7 +17,7 @@ function KeyPath(obj) {
 
 		const keys = (obj, keyPath = [], level = 0) => {
 			if (level > options.depth) return [];
-			if (level > 0 && options.filter && !options.filter(join(keyPath, options), obj)) return [];
+			if (level > 0 && options.tester && !options.tester(join(keyPath, options), obj)) return [];
 			if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return [];
 			return [].concat(...Object.keys(obj).map((key) => {
 				const newKeyPath = keyPath.concat([key]);
