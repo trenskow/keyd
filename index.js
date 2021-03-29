@@ -70,6 +70,7 @@ function KeyPath(obj) {
 		let ret = obj;
 
 		for (let idx = 0 ; idx < keyPath.length - 1 ; idx++) {
+			if (ret[keyPath[idx]] === Object.prototype) continue;
 			ret = ret[keyPath[idx]] = ret[keyPath[idx]] || {};
 		}
 
