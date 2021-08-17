@@ -33,10 +33,10 @@ const test = (options) => {
 		expect(obj.this.is.a.new.value).to.equal(true);
 	});
 
-	it ('should not allow protopath overwrite', () => {
+	it ('should not allow prototype overwrite', () => {
 		expect(keyPath(obj).set('__proto__.polluted', true).polluted).to.be.equal(undefined);
 		expect(keyPath(obj).set('constructor.prototype.polluted', true).polluted).to.be.equal(undefined);
-	})
+	});
 	
 	it ('should come back with all items', () => {
 		expect(keyPath(arr).getAll(convert('this.is.a.value'), merge(true, options))).to.deep.equal([1,2,3,4]);
