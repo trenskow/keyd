@@ -65,7 +65,7 @@ function KeyPath(obj) {
 
 	this.set = function(keyPath, value, options = { separator: '.' }) {
 
-		keyPath = _unfold(keyPath, options.separator);
+		keyPath = _unfold(keyPath, options);
 
 		let ret = obj;
 
@@ -82,16 +82,15 @@ function KeyPath(obj) {
 
 	this.exists = function(keyPath, options = { separator: '.' }) {
 		
-		keyPath = _unfold(keyPath, options.separator);
-
-		return _unfold(keyPath, options)
+		const [exists] = _unfold(keyPath, options)
 			.reduce(([exists, obj], key) => {
 				return [
 					exists && typeof obj === 'object' && key in obj,
 					(obj || {})[key]
 				];
-			}, [ true, obj ])
-			.every((exists) => exists);
+			}, [true, obj]);
+		
+		return exists;
 
 	};
 
