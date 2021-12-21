@@ -1,6 +1,6 @@
 {
   "name": "keyd",
-  "version": "1.4.3",
+  "version": "1.5.0",
   "description": "A small library for using and manipulating key path in JavaScript.",
   "main": "index.js",
   "scripts": {
@@ -28,6 +28,7 @@
   "homepage": "https://github.com/trenskow/keyd#readme",
   "devDependencies": {
     "chai": "^4.2.0",
+    "eslint": "^8.5.0",
     "merge": "^2.1.1",
     "mocha": "^9.1.3"
   }

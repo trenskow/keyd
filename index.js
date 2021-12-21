@@ -80,6 +80,21 @@ function KeyPath(obj) {
 
 	};
 
+	this.exists = function(keyPath, options = { separator: '.' }) {
+		
+		keyPath = _unfold(keyPath, options.separator);
+
+		return _unfold(keyPath, options)
+			.reduce(([exists, obj], key) => {
+				return [
+					exists && typeof obj === 'object' && key in obj,
+					(obj || {})[key]
+				];
+			}, [ true, obj ])
+			.every((exists) => exists);
+
+	};
+
 }
 
 module.exports = exports = KeyPath;
