@@ -156,6 +156,13 @@ const test = (options) => {
 			it ('should ignore arrays', () => {
 				expect(keyPath({ a: [123,456] }).keyPaths(merge(true, options))).to.have.members(['a']);
 			});
+
+			it ('should not traverse circular references', () => {
+				let a = {};
+				let b = { test: '123', a: a };
+				a.b = b;
+				expect(keyPath(a).keyPaths()).to.eql([ 'b', 'b.test', 'b.a' ]);
+			});
 		
 		});
 	

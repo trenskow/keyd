@@ -15,11 +15,15 @@ function KeyPath(obj) {
 		if (typeof options.depth !== 'number') options.depth = Infinity;
 		options.separator = options.separator || '.';
 
+		const handled = [];
+
 		const keys = (obj, keyPath = [], level = 0) => {
 			if (level > options.depth) return [];
 			if (level > 0 && options.tester && !options.tester(join(keyPath, options), obj)) return [];
 			if (!obj || typeof obj !== 'object' || (options.allowArrays !== true && Array.isArray(obj))) return [];
 			return [].concat(...Object.keys(obj).map((key) => {
+				if (handled.findIndex((item) => item === obj[key]) > -1) return [];
+				handled.push(obj[key]);
 				const newKeyPath = keyPath.concat([key]);
 				return [join(newKeyPath, options)].concat(...keys(obj[key], newKeyPath, level + 1));
 			}));
