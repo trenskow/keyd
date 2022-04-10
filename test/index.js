@@ -62,8 +62,24 @@ const test = (options) => {
 				expect(keyPath(obj).exists('this.is.a.value')).to.be.true;
 			});
 		
-			it ('should come back with `true`', () => {
+			it ('should come back with `false`', () => {
 				expect(keyPath(obj).exists('this.is.a.value.1')).to.be.false;
+			});
+
+		});
+
+		describe('keyPaths', () => {
+
+			it ('should come back with an array of all key paths.', () => {
+				expect(keyPath(obj).keyPaths()).to.eql([
+					'this',
+					'this.is',
+					'this.is.a',
+					'this.is.a.value',
+					'this.is.a.new',
+					'this.is.a.new.value',
+					'constructor'
+				]);
 			});
 
 		});
