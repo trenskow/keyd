@@ -200,3 +200,17 @@ function within(first, second, options = { separator: '.' }) {
 }
 
 exports.within = within;
+
+function is(first, second, options = { separator: '.' }) {
+
+	first = _unfold(first, options);
+	second = _unfold(second, options);
+
+	if (first.length !== second.length) return false;
+	return first.every((component, idx) => {
+		return component === second[idx];
+	});
+
+}
+
+exports.is = is;

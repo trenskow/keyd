@@ -152,6 +152,14 @@ const test = (options) => {
 			it ('should come back with `false` if key path is longer than another', () => {
 				expect(keyPath.within(convert('this.is.my.first.key.path'), convert('this.is.my'), merge(true, options))).to.equal(false);
 			});
+
+			it ('should come back with `true` if key path is equal to another', () => {
+				expect(keyPath.is(convert('this.is.my.key.path'), convert('this.is.my.key.path'), merge(true, options))).to.equal(true);
+			});
+
+			it ('should come back with `false` if key path is not equal to another', () => {
+				expect(keyPath.is(convert('this.is.my.key.path'), convert('this.is.not.my.key.path'), merge(true, options))).to.equal(false);
+			});
 			
 			it ('should come back with all the keys in an object', () => {
 				expect(keyPath({ a: 123, b: { c: 456, d: { e: 789, f: 'abc' } }}).keyPaths(merge(true, options)))

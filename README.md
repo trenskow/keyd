@@ -125,6 +125,11 @@ const within = keyd.within('my.key.path', 'my.key');
 /* -> true */
 ````
 
+````javascript
+const is = keyd.is('my.key.path', 'my.key');
+/* -> false */
+````
+
 > Both inputs can be either strings or arrays.
 
 # Options
