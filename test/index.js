@@ -78,8 +78,17 @@ const test = (options) => {
 					'this.is.a.value',
 					'this.is.a.new',
 					'this.is.a.new.value',
-					'constructor'
+					'polluted'
 				]);
+			});
+
+			it ('should come back with an array of all key paths where values are the same.', () => {
+				expect(keyPath({
+					id: 0,
+					test: {
+						id: 0
+					}
+				}).keyPaths()).to.eql(['id', 'test', 'test.id']);
 			});
 
 		});

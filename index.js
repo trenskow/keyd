@@ -22,8 +22,10 @@ function KeyPath(obj) {
 			if (level > 0 && options.tester && !options.tester(join(keyPath, options), obj)) return [];
 			if (!obj || typeof obj !== 'object' || (options.allowArrays !== true && Array.isArray(obj))) return [];
 			return [].concat(...Object.keys(obj).map((key) => {
-				if (handled.findIndex((item) => item === obj[key]) > -1) return [];
-				handled.push(obj[key]);
+				if (typeof obj[key] === 'object' && obj[key] !== null) {
+					if (handled.findIndex((item) => item === obj[key]) > -1) return [];
+					handled.push(obj[key]);	
+				}
 				const newKeyPath = keyPath.concat([key]);
 				return [join(newKeyPath, options)].concat(...keys(obj[key], newKeyPath, level + 1));
 			}));
@@ -74,7 +76,7 @@ function KeyPath(obj) {
 		let ret = obj;
 
 		for (let idx = 0 ; idx < keyPath.length - 1 ; idx++) {
-			if (ret[keyPath[idx]] === Object.prototype) continue;
+			if (['__proto__', 'constructor', 'prototype'].includes(keyPath[idx])) continue;
 			ret = ret[keyPath[idx]] = ret[keyPath[idx]] || {};
 		}
 
