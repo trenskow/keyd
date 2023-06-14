@@ -24,7 +24,7 @@ function KeyPath(obj) {
 			return [].concat(...Object.keys(obj).map((key) => {
 				if (typeof obj[key] === 'object' && obj[key] !== null) {
 					if (handled.findIndex((item) => item === obj[key]) > -1) return [];
-					handled.push(obj[key]);	
+					handled.push(obj[key]);
 				}
 				const newKeyPath = keyPath.concat([key]);
 				return [join(newKeyPath, options)].concat(...keys(obj[key], newKeyPath, level + 1));
@@ -87,7 +87,7 @@ function KeyPath(obj) {
 	};
 
 	this.exists = function(keyPath, options = { separator: '.' }) {
-		
+
 		const [exists] = _unfold(keyPath, options)
 			.reduce(([exists, obj], key) => {
 				return [
@@ -95,8 +95,36 @@ function KeyPath(obj) {
 					(obj || {})[key]
 				];
 			}, [true, obj]);
-		
+
 		return exists;
+
+	};
+
+	this.present = function(keyPath, options = { separator: '.' }) {
+
+		const resolve = function(result, obj, pastKeyPath, futureKeyPath) {
+
+			if (futureKeyPath.length == 0) {
+				return result.concat(join(pastKeyPath, options));
+			}
+
+			if (Array.isArray(obj)) {
+
+				return obj.reduce((result, item, idx) => {
+					return resolve(result, item, pastKeyPath.concat(idx), futureKeyPath);
+				}, result);
+
+			} else {
+
+				if (typeof obj[futureKeyPath[0]] === 'undefined') return result;
+
+				return resolve(result, obj[futureKeyPath[0]], pastKeyPath.concat(futureKeyPath[0]), futureKeyPath.slice(1));
+
+			}
+
+		};
+
+		return resolve([], obj, [], _unfold(keyPath, options));
 
 	};
 
@@ -182,7 +210,7 @@ function eatFirst(keyPath, eat, options = { separator: '.' }) {
 			break;
 		}
 	}
-	
+
 	return join(keyPath, options);
 
 }
