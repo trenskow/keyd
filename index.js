@@ -86,6 +86,24 @@ function KeyPath(obj) {
 
 	};
 
+	this.delete = function(keyPath, options = { separator: '.'}) {
+
+		keyPath = _unfold(keyPath, options);
+
+		let ret = obj;
+
+		for (let idx = 0 ; idx < keyPath.length - 1 ; idx++) {
+			if (['__proto__', 'constructor', 'prototype'].includes(keyPath[idx])) continue;
+			if (this.keyPaths.length > 0 && typeof ret[keyPath[idx]] !== 'object') return this;
+			ret = ret[keyPath[idx]] = ret[keyPath[idx]] || {};
+		}
+
+		if (keyPath.length > 0) delete ret[keyPath[keyPath.length - 1]];
+
+		return this;
+
+	};
+
 	this.exists = function(keyPath, options = { separator: '.' }) {
 
 		const [exists] = _unfold(keyPath, options)
