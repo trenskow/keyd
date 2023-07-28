@@ -1,6 +1,6 @@
 'use strict';
 
-function KeyPath(obj) {
+const keyd = function KeyPath(obj) {
 
 	if (!(this instanceof KeyPath)) return new KeyPath(obj);
 
@@ -36,38 +36,24 @@ function KeyPath(obj) {
 	};
 
 	this.get = function(keyPath, options = { separator: '.' }) {
-		return _unfold(keyPath, options)
-			.reduce((obj, key) => {
-				return (obj || {})[key];
-			}, obj);
-	};
 
-	this.get.all = function(keyPath, options = { separator: '.' }) {
+		keyPath = _unfold(keyPath, options);
 
-		const resolve = function(obj, keyPath) {
+		const current = keyPath[0];
+		const next = keyPath.slice(1);
 
-			if (keyPath.length == 0) return obj;
+		if (typeof obj === 'undefined') return;
+		
+		if (Array.isArray(obj)) {
+			return obj = obj
+				.reduce((result, item) => [result, keyd(item).get(keyPath)].flat(), []);
+		}
 
-			if (!Array.isArray(obj)) obj = [obj];
+		if (typeof current !== 'undefined') return keyd(obj[current]).get(next);
 
-			let items = obj.map((obj) => {
-				let ret = obj[keyPath[0]];
-				if (!Array.isArray(ret)) ret = [ret];
-				return ret;
-			}).reduce((res, item) => {
-				return res.concat(item);
-			}, []);
-
-			return resolve(items, keyPath.slice(1));
-
-		};
-
-		return resolve(obj, _unfold(keyPath, options));
+		return obj;
 
 	};
-
-	// Legacy binding.
-	this.getAll = this.get.all;
 
 	this.set = function(keyPath, value, options = { separator: '.' }) {
 
@@ -146,9 +132,9 @@ function KeyPath(obj) {
 
 	};
 
-}
+};
 
-module.exports = exports = KeyPath;
+module.exports = exports = keyd;
 
 function components(keyPath, options = {}) {
 	if (typeof keyPath !== 'string') throw new Error('`keyPath` must be a string.');

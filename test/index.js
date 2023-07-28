@@ -58,10 +58,10 @@ const test = (options) => {
 
 		});
 
-		describe('getAll', () => {
+		describe('get (array)', () => {
 
 			it ('should come back with all items', () => {
-				expect(keyPath(arr).getAll(convert('this.is.a.value'), merge(true, options))).to.deep.equal([1,2,3,4]);
+				expect(keyPath(arr).get(convert('this.is.a.value'), merge(true, options))).to.deep.equal([1,2,3,4]);
 			});
 
 		});
