@@ -64,6 +64,10 @@ const test = (options) => {
 				expect(keyPath(arr).get(convert('this.is.a.value'), merge(true, options))).to.deep.equal([1,2,3,4]);
 			});
 
+			it ('should come back with length', () => {
+				expect(keyPath(arr).get('0.this.is.a.length', { arrays: 'flat' })).to.equal(2);
+			});
+
 		});
 
 		describe('exists', () => {

@@ -35,7 +35,7 @@ const keyd = function KeyPath(obj) {
 
 	};
 
-	this.get = function(keyPath, options = { separator: '.' }) {
+	this.get = function(keyPath, options = { separator: '.', arrays: 'combine' }) {
 
 		keyPath = _unfold(keyPath, options);
 
@@ -44,12 +44,12 @@ const keyd = function KeyPath(obj) {
 
 		if (typeof obj === 'undefined') return;
 		
-		if (Array.isArray(obj)) {
+		if (Array.isArray(obj) && (options || {}).arrays !== 'flat') {
 			return obj = obj
-				.reduce((result, item) => [result, keyd(item).get(keyPath)].flat(), []);
+				.reduce((result, item) => [result, keyd(item).get(keyPath, options)].flat(), []);
 		}
 
-		if (typeof current !== 'undefined') return keyd(obj[current]).get(next);
+		if (typeof current !== 'undefined') return keyd(obj[current]).get(next, options);
 
 		return obj;
 
