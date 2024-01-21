@@ -1,5 +1,3 @@
-'use strict';
-
 const keyd = function KeyPath(obj) {
 
 	if (!(this instanceof KeyPath)) return new KeyPath(obj);
@@ -43,7 +41,7 @@ const keyd = function KeyPath(obj) {
 		const next = keyPath.slice(1);
 
 		if (typeof obj === 'undefined') return;
-		
+
 		if (Array.isArray(obj) && (options || {}).arrays !== 'flat') {
 			return obj = obj
 				.reduce((result, item) => [result, keyd(item).get(keyPath, options)].flat(), []);
@@ -134,14 +132,16 @@ const keyd = function KeyPath(obj) {
 
 };
 
-module.exports = exports = keyd;
+export default keyd;
 
 function components(keyPath, options = {}) {
 	if (typeof keyPath !== 'string') throw new Error('`keyPath` must be a string.');
 	return (keyPath || '').split(options.separator || '.').filter((part) => part);
 }
 
-exports.components = components;
+export { components };
+
+keyd.components = components;
 
 function _unfold(keyPath, options) {
 	// If key path is not an array - we get the components of it.
@@ -155,38 +155,50 @@ function join(components, options = {}) {
 	return _unfold(components || []).join(options.separator || '.');
 }
 
-exports.join = join;
+export { join };
+
+keyd.join = join;
 
 function depth(keyPath, options = { separator: '.' }) {
 	return _unfold(keyPath, options).length;
 }
 
-exports.depth = depth;
+export { depth };
+
+keyd.depth = depth;
 
 function append(keyPath, keys, options = { separator: '.' }) {
 	return join(_unfold(keyPath, options).concat(_unfold(keys, options)), options);
 }
 
-exports.append = append;
+export { append };
+
+keyd.append = append;
 
 function last(keyPath, options = { separator: '.' }) {
 	let parts = _unfold(keyPath, options);
 	return parts[parts.length - 1];
 }
 
-exports.last = last;
+export { last };
+
+keyd.last = last;
 
 function eatLast(keyPath, options = { separator: '.' }) {
 	return join(_unfold(keyPath, options).slice(0, -1), options);
 }
 
-exports.eatLast = eatLast;
+export { eatLast };
+
+keyd.eatLast = eatLast;
 
 function first(keyPath, options = { separator: '.' }) {
 	return _unfold(keyPath, options)[0];
 }
 
-exports.first = first;
+export { first };
+
+keyd.first = first;
 
 function eatFirst(keyPath, eat, options = { separator: '.' }) {
 
@@ -219,7 +231,9 @@ function eatFirst(keyPath, eat, options = { separator: '.' }) {
 
 }
 
-exports.eatFirst = eatFirst;
+export { eatFirst };
+
+keyd.eatFirst = eatFirst;
 
 function within(first, second, options = { separator: '.' }) {
 
@@ -233,7 +247,9 @@ function within(first, second, options = { separator: '.' }) {
 
 }
 
-exports.within = within;
+export { within };
+
+keyd.within = within;
 
 function is(first, second, options = { separator: '.' }) {
 
@@ -247,4 +263,6 @@ function is(first, second, options = { separator: '.' }) {
 
 }
 
-exports.is = is;
+export { is };
+
+keyd.is = is;

@@ -1,8 +1,9 @@
 'use strict';
 
-const keyPath = require('../'),
-	expect = require('chai').expect,
-	merge = require('merge');
+import keyPath from '../index.js';
+
+import { expect } from 'chai';
+import merge from 'merge';
 
 let obj = { this: { is: { a: { value: 1 } } } };
 let arr = [
