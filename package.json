@@ -1,36 +1,39 @@
 {
-  "name": "keyd",
-  "version": "2.1.5",
-  "description": "A small library for using and manipulating key path in JavaScript.",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "test": "./node_modules/mocha/bin/mocha.js test/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/trenskow/keyd.git"
-  },
-  "keywords": [
-    "key",
-    "path",
-    "keypath",
-    "object",
-    "get",
-    "set",
-    "manipulate",
-    "edit"
-  ],
-  "author": "Kristian Trenskow <trenskow@me.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/trenskow/keyd/issues"
-  },
-  "homepage": "https://github.com/trenskow/keyd#readme",
-  "devDependencies": {
-    "chai": "^5.1.1",
-    "eslint": "^9.12.0",
-    "merge": "^2.1.1",
-    "mocha": "^10.7.3"
-  }
+	"name": "keyd",
+	"version": "2.1.5",
+	"description": "A small library for using and manipulating key path in JavaScript.",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"test": "./node_modules/mocha/bin/mocha.js test/index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/trenskow/keyd.git"
+	},
+	"keywords": [
+		"key",
+		"path",
+		"keypath",
+		"object",
+		"get",
+		"set",
+		"manipulate",
+		"edit"
+	],
+	"author": "Kristian Trenskow <trenskow@me.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/trenskow/keyd/issues"
+	},
+	"homepage": "https://github.com/trenskow/keyd#readme",
+	"devDependencies": {
+		"@eslint/eslintrc": "^3.1.0",
+		"@eslint/js": "^9.13.0",
+		"chai": "^5.1.1",
+		"eslint": "^9.13.0",
+		"globals": "^15.11.0",
+		"merge": "^2.1.1",
+		"mocha": "^10.7.3"
+	}
 }
