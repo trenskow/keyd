@@ -30,7 +30,7 @@
 	"devDependencies": {
 		"@eslint/eslintrc": "^3.3.1",
 		"@eslint/js": "^9.13.0",
-		"@trenskow/merge": "^0.1.38",
+		"@trenskow/merge": "^0.1.39",
 		"chai": "^5.2.0",
 		"eslint": "^9.26.0",
 		"globals": "^16.0.0",
