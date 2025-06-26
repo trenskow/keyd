@@ -1,6 +1,6 @@
 {
 	"name": "keyd",
-	"version": "2.1.34",
+	"version": "2.1.35",
 	"description": "A small library for using and manipulating key path in JavaScript.",
 	"main": "index.js",
 	"type": "module",
