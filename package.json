@@ -28,7 +28,7 @@
 	},
 	"homepage": "https://github.com/trenskow/keyd#readme",
 	"devDependencies": {
-		"@eslint/eslintrc": "^3.3.1",
+		"@eslint/eslintrc": "^3.3.3",
 		"@eslint/js": "^9.13.0",
 		"@trenskow/merge": "^0.1.46",
 		"chai": "^6.2.1",
