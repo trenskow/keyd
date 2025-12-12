@@ -136,7 +136,10 @@ export default keyd;
 
 function components(keyPath, options = {}) {
 	if (typeof keyPath !== 'string') throw new Error('`keyPath` must be a string.');
-	return (keyPath || '').split(options.separator || '.').filter((part) => part);
+	return (keyPath || '')
+		.split(options.separator || '.')
+		.filter((part) => part)
+		.map((part) => typeof options.transform === 'function' ? options.transform(part) : part);
 }
 
 export { components };
