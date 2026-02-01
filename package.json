@@ -33,7 +33,7 @@
 		"@trenskow/merge": "^0.1.50",
 		"chai": "^6.2.2",
 		"eslint": "^9.39.2",
-		"globals": "^17.0.0",
+		"globals": "^17.3.0",
 		"mocha": "^11.7.5"
 	}
 }
