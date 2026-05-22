@@ -212,6 +212,34 @@ const test = (options = {}) => {
 				expect(keyPath(a).keyPaths()).to.eql([ 'b', 'b.test', 'b.a' ]);
 			});
 
+			it ('should collapse a nested object into one', () => {
+				expect(keyPath.collapse({
+					this: {
+						is: {
+							a: 'test',
+							another: 'test'
+						}
+					}
+				})).to.eql({
+					'this.is.a': 'test',
+					'this.is.another': 'test'
+				});
+			});
+
+			it ('should expand a flat object into a nested one', () => {
+				expect(keyPath.expand({
+					'this.is.a': 'test',
+					'this.is.another': 'test'
+				})).to.eql({
+					this: {
+						is: {
+							a: 'test',
+							another: 'test'
+						}
+					}
+				});
+			});
+
 		});
 
 	});

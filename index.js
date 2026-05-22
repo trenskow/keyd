@@ -269,3 +269,40 @@ function is(first, second, options = { separator: '.' }) {
 export { is };
 
 keyd.is = is;
+
+function collapse(obj, options = { separator: '.' }) {
+
+	if (typeof obj !== 'object' || obj === null) {
+		return obj;
+	}
+
+	let k = keyd(obj);
+
+	return Object.fromEntries(
+		k.keyPaths(options)
+			.map((keyPath) => [keyPath, k.get(keyPath)])
+			.filter(([, value]) => typeof value !== 'object' || value === null));
+
+}
+
+export { collapse };
+
+keyd.collapse = collapse;
+
+function expand(obj, options = { separator: ''}) {
+
+	if (typeof obj !== 'object' || obj === null) {
+		return obj;
+	}
+
+	return Object.entries(obj)
+		.reduce((result, [keyPath, value]) => {
+			keyd(result).set(keyPath, value, options);
+			return result;
+		}, {});
+
+}
+
+export { expand };
+
+keyd.expand = expand;
