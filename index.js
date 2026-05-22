@@ -280,7 +280,7 @@ function collapse(obj, options = { separator: '.' }) {
 
 	return Object.fromEntries(
 		k.keyPaths(options)
-			.map((keyPath) => [keyPath, k.get(keyPath)])
+			.map((keyPath) => [keyPath, k.get(keyPath, options)])
 			.filter(([, value]) => typeof value !== 'object' || value === null));
 
 }
